@@ -1,0 +1,10 @@
+{
+  "displayName" : "Winupdate",
+  "author" : ["Guillaume PRIOU", "Gilles DUBOIS"],
+  "contributor" : [],
+  "supportedAgent" : ["Windows"],
+  "description" : {
+    "fr" : "Remonte le status et la configuration des mises à jour Windows",
+    "en" : "Retrieve Windows Update configuration and state"
+  }
+}
