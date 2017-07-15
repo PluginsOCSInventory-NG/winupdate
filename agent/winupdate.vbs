@@ -1,31 +1,64 @@
-'Date : Le 29/12/2012
-'Autor : Guillaume PRIOU
-'Retrieve Windows Update Status, lasts updates detected, download and installed
-'--------------------------------------------
-
-On error resume next
-Wscript.Echo "<WINUPDATESTATE>"
-set c=CreateObject("WScript.Shell" )
-'Retrieve the degree of user interaction
+'----------------------------------------------------------
+' Date  : Le 15/07/2017
+' Auteurs : Guillaume PRIOU et Stéphane PAUTREL
+' Version : 2.0
+' Retrieve Windows Update Status (all OS, W10 included), lasts updates detected, download and installed (XP, W7, W8, W8.1)
+'----------------------------------------------------------
+' Degree of user interaction (AUOptions)
     '1 = Disables AU (Same as disabling it through the standard controls)
     '2 = Notify Download and Install (Requires Administrator Privileges)
     '3 = Notify Install (Requires Administrator Privileges)
     '4 = Automatically, no notification (Uses ScheduledInstallTime and ScheduledInstallDay)
 
-AutoUpdateLevel = c.RegRead("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\AUOptions")
-Wscript.Echo "<AUOPTIONS>"& AutoUpdateLevel &"</AUOPTIONS>"
- 
-'Retrieve next verification of windows update
-ScheduledInstallDate = c.RegRead("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\ScheduledInstallDate")
-Wscript.Echo "<SCHEDULEDINSTALLDATE>"& ScheduledInstallDate &"</SCHEDULEDINSTALLDATE>"
- 
-'Last success update install date 
-LastSuccessTime = c.RegRead("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\Results\Install\LastSuccessTime")
-Wscript.Echo "<LASTSUCCESSTIME>"& LastSuccessTime &"</LASTSUCCESSTIME>"
-'Last success update detected date
-DetectSuccessTime = c.RegRead("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\Results\Detect\LastSuccessTime")
-Wscript.Echo "<DETECTSUCCESSTIME>"& DetectSuccessTime &"</DETECTSUCCESSTIME>"
-'Last success update downloaded date
-DownloadSuccessTime = c.RegRead("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\Results\Download\LastSuccessTime")
-Wscript.Echo "<DOWNLOADSUCCESSTIME>"& DownloadSuccessTime &"</DOWNLOADSUCCESSTIME>"
-Wscript.Echo "</WINUPDATESTATE>"
+On Error Resume Next
+
+Const HKEY_LOCAL_MACHINE = &H80000002
+Dim objAutoUpdate, objAUSettings, strRegistry, Result
+
+' Common method for AUOptions
+Set objAutoUpdate = CreateObject("Microsoft.Update.AutoUpdate")
+Set objAU Settings = objAutoUpdate.Settings
+
+strRegistry = "Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update"
+
+' Windows update status (degree of user interaction)
+Result = "<WINUPDATESTATE>" & VbCrLf & "<AUOPTIONS>" &_
+    objAUSettings.NotificationLevel & "</AUOPTIONS>"
+
+' Last success update install date
+Result = Result & VbCrLf & "<LASTSUCCESSTIME>" &_
+    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Install\", "LastSuccessTime", 64) & "</LASTSUCCESSTIME>"
+
+' Last success update detected date
+Result = Result & VbCrLf & "<DETECTSUCCESSTIME>" &_
+    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Detect\", "LastSuccessTime", 64) & "</DETECTSUCCESSTIME>"
+
+' Last success update downloaded date
+Result = Result & VbCrLf & "<DOWNLOADSUCCESSTIME>" &_
+    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Download\", "LastSuccessTime", 64) & "</DOWNLOADSUCCESSTIME>"
+
+' Retrieve next verification of Windows update
+Result = Result & VbCrLf & "<SCHEDULEDINSTALLDATE>" &_
+    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry, "ScheduledInstallDate", 64) & "</SCHEDULEDINSTALLDATE>"
+
+Result = Result & VbCrLf & "</WINUPDATESTATE>"
+
+Function ReadRegStr (RootKey, Key, Value, RegType)
+    Dim oCtx, oLocator, oReg, oInParams, oOutParams
+
+    Set oCtx = CreateObject("WbemScripting.SWbemNamedValueSet")
+    oCtx.Add "__ProviderArchitecture", RegType
+
+    Set oLocator = CreateObject("Wbemscripting.SWbemLocator")
+    Set oReg = oLocator.ConnectServer("", "root\default", "", "", , , , oCtx).Get("StdRegProv")
+
+    Set oInParams = oReg.Methods_("GetStringValue").InParameters
+        oInParams.hDefKey = RootKey
+        oInParams.sSubKeyName = Key
+        oInParams.sValueName = Value
+
+    Set oOutParams = oReg.ExecMethod_("GetStringValue", oInParams, , oCtx)
+    ReadRegStr = oOutParams.sValue                           
+End Function
+
+Wscript.Echo Result
