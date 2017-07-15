@@ -2,7 +2,7 @@
 ' Script : Retrieve Windows Update Status (all OS, W10 included), last updates detected, download and installed (XP, W7, W8, W8.1)
 ' Version : 2.0
 ' Date  : 15/07/2017
-' Autors : Guillaume PRIOU and Stéphane PAUTREL
+' Authors : Guillaume PRIOU and Stéphane PAUTREL
 '----------------------------------------------------------
 ' Degree of user interaction (AUOptions)
     '1 = Disables AU (Same as disabling it through the standard controls)
