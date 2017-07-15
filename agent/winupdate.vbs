@@ -1,8 +1,8 @@
 '----------------------------------------------------------
-' Date  : Le 15/07/2017
-' Auteurs : Guillaume PRIOU et Stéphane PAUTREL
+' Date  : 15/07/2017
+' Autors : Guillaume PRIOU and Stéphane PAUTREL
 ' Version : 2.0
-' Retrieve Windows Update Status (all OS, W10 included), lasts updates detected, download and installed (XP, W7, W8, W8.1)
+' Retrieve Windows Update Status (all OS, W10 included), last updates detected, download and installed (XP, W7, W8, W8.1)
 '----------------------------------------------------------
 ' Degree of user interaction (AUOptions)
     '1 = Disables AU (Same as disabling it through the standard controls)
