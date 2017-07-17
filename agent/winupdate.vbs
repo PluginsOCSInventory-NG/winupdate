@@ -17,7 +17,7 @@ Dim objAutoUpdate, objAUSettings, strRegistry, Result
 
 ' Common method for AUOptions
 Set objAutoUpdate = CreateObject("Microsoft.Update.AutoUpdate")
-Set objAU Settings = objAutoUpdate.Settings
+Set objAUSettings = objAutoUpdate.Settings
 
 strRegistry = "Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update"
 
