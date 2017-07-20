@@ -1,7 +1,7 @@
 '----------------------------------------------------------
-' Script : Retrieve Windows Update Status (all OS, W10 included), last updates detected, download and installed (XP, W7, W8, W8.1)
+' Script : Retrieve Windows Update Status (W10 included), last updates detected, download and installed (XP, W7, W8, W8.1)
 ' Version : 2.0
-' Date  : 15/07/2017
+' Date  : 20/07/2017
 ' Authors : Guillaume PRIOU and Stéphane PAUTREL
 '----------------------------------------------------------
 ' Degree of user interaction (AUOptions)
@@ -44,21 +44,21 @@ Result = Result & VbCrLf & "<SCHEDULEDINSTALLDATE>" &_
 Result = Result & VbCrLf & "</WINUPDATESTATE>"
 
 Function ReadRegStr (RootKey, Key, Value, RegType)
-    Dim oCtx, oLocator, oReg, oInParams, oOutParams
+	Dim oCtx, oLocator, oReg, oInParams, oOutParams
 
-    Set oCtx = CreateObject("WbemScripting.SWbemNamedValueSet")
-    oCtx.Add "__ProviderArchitecture", RegType
+	Set oCtx = CreateObject("WbemScripting.SWbemNamedValueSet")
+	oCtx.Add "__ProviderArchitecture", RegType
 
-    Set oLocator = CreateObject("Wbemscripting.SWbemLocator")
-    Set oReg = oLocator.ConnectServer("", "root\default", "", "", , , , oCtx).Get("StdRegProv")
+	Set oLocator = CreateObject("Wbemscripting.SWbemLocator")
+	Set oReg = oLocator.ConnectServer("", "root\default", "", "", , , , oCtx).Get("StdRegProv")
 
-    Set oInParams = oReg.Methods_("GetStringValue").InParameters
-        oInParams.hDefKey = RootKey
-        oInParams.sSubKeyName = Key
-        oInParams.sValueName = Value
+	Set oInParams = oReg.Methods_("GetStringValue").InParameters
+		oInParams.hDefKey = RootKey
+		oInParams.sSubKeyName = Key
+		oInParams.sValueName = Value
 
-    Set oOutParams = oReg.ExecMethod_("GetStringValue", oInParams, , oCtx)
-    ReadRegStr = oOutParams.sValue                           
+	Set oOutParams = oReg.ExecMethod_("GetStringValue", oInParams, , oCtx)
+	ReadRegStr = oOutParams.sValue                           
 End Function
 
 Wscript.Echo Result
