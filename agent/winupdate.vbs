@@ -1,6 +1,6 @@
 '----------------------------------------------------------
 ' Plugin for OCS Inventory NG 2.x
-' Script :		Retrieve Windows Update Status (W10), included last updates detected, download and installed (XP, W7, W8.1)
+' Script :		Retrieve Windows update status (W10), included last updates detected, download and installed (XP, W7, W8.1)
 ' Version :		2.00
 ' Date :		11/08/2017
 ' Authors :		Guillaume PRIOU and Stéphane PAUTREL (acb78.com)
