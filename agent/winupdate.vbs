@@ -7,7 +7,7 @@
 '----------------------------------------------------------
 ' OS checked [X] on	32b	64b	(Professionnal edition)
 ' Windows XP		[X]	[ ]
-' Windows 7			[X]	[X]
+' Windows 7		[X]	[X]
 ' Windows 8.1		[X]	[X]	
 ' Windows 10		[X]	[X]
 ' ---------------------------------------------------------
