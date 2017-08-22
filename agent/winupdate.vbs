@@ -7,11 +7,12 @@
 '----------------------------------------------------------
 ' OS checked [X] on	32b	64b	(Professionnal edition)
 ' Windows XP		[X]	[ ]
+' Windows Vista		[X]	[X]
 ' Windows 7		[X]	[X]
 ' Windows 8.1		[X]	[X]	
 ' Windows 10		[X]	[X]
 ' ---------------------------------------------------------
-' NOTE : No checked on Windows Vista and Windows 8
+' NOTE : No checked on Windows 8
 ' Degree of user interaction (AUOptions)
 	'1 = Disables AU (Same as disabling it through the standard controls)
 	'2 = Notify Download and Install (Requires Administrator Privileges)
