@@ -2,7 +2,7 @@
 function plugin_version_winupdate()
 {
 return array('name' => 'winupdate',
-'version' => '1.0',
+'version' => '1.1',
 'author'=> 'Guillaume PRIOU, Gilles DUBOIS',
 'license' => 'GPLv2',
 'verMinOcs' => '2.2');
