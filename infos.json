@@ -3,6 +3,8 @@
   "author" : ["Guillaume PRIOU", "Gilles DUBOIS"],
   "contributor" : [],
   "supportedAgent" : ["Windows"],
+  "version" : "1.1",
+  "licence" : "GPLv2",
   "description" : {
     "fr" : "Remonte le status et la configuration des mises à jour Windows",
     "en" : "Retrieve Windows Update configuration and state"
