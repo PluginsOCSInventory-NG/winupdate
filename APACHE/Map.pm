@@ -23,11 +23,13 @@ $DATA_MAP{winupdatestate} = {
 		writeDiff => 0,
 		cache => 0,
 		fields => {
-                        AUOPTIONS => {},
-			SCHEDULEDINSTALLDATE => {},
-			LASTSUCCESSTIME => {},
-			DETECTSUCCESSTIME => {},
-			DOWNLOADSUCCESSTIME => {},
-	        }
+            KB => {},
+			TITLE => {},
+			DATE => {},
+			OPERATION => {},
+			STATUS => {},
+			SUPPORTLINK => {},
+			DESCRIPTION => {},
+	    }
 };
 1;
