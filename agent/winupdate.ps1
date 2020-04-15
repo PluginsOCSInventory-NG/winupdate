@@ -28,7 +28,7 @@ foreach ($Update in $UpdateHistory) {
     [regex]::match($Update.Title,'(KB[0-9]{6,7})').value | Where-Object {$_ -ne ""} | foreach { 
         $op = Get-Operation($Update.Operation)
         $stat = Get-Status($Update.ResultCode)
-        $xml += "<WINUPDATE>`n"
+        $xml += "<WINUPDATESTATE>`n"
         $xml += "<KB>" + $_ + "</KB>`n"
         $xml += "<TITLE>" + $Update.Title + "</TITLE>`n"
         $xml += "<DATE>" + $Update.Date + "</DATE>`n"
@@ -36,7 +36,7 @@ foreach ($Update in $UpdateHistory) {
         $xml += "<STATUS>" + $stat + "</STATUS>`n"
         $xml += "<SUPPORTLINK>" + $Update.SupportUrl + "</SUPPORTLINK>`n"
         $xml += "<DESCRIPTION>" + $Update.Description + "</DESCRIPTION>`n"
-        $xml += "</WINUPDATE>`n"
+        $xml += "</WINUPDATESTATE>`n"
     } 
 }
 
