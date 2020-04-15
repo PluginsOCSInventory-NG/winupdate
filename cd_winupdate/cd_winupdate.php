@@ -28,11 +28,13 @@
 	$tab_options['table_name']=$table_name;
 	echo open_form($form_name);
 	$list_fields=array(
-			'Windows update status' => 'AUOPTIONS',
-			'Scheduled install date' => 'SCHEDULEDINSTALLDATE',
-			'Last succes time' => 'LASTSUCCESSTIME',
-			'Detect succes time' => 'DETECTSUCCESSTIME',
-			'Download succes time' => 'DOWNLOADSUCCESSTIME'
+			"KB" => "KB",
+			"Title" => "TITLE",
+			"Install Date" => "DATE",
+			"Operation Status" => "OPERATION",
+			"Result Status" => "STATUS",
+			"Support Link" => "SUPPORTLINK",
+			"Description" => "DESCRIPTION"
 	);
 	$list_col_cant_del=$list_fields;
 	$default_fields= $list_fields;

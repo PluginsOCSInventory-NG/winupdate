@@ -7,14 +7,18 @@ function extension_install_winupdate()
 {
     $commonObject = new ExtensionCommon;
 
-    $commonObject -> sqlQuery("CREATE TABLE IF NOT EXISTS `winupdatestate` (
+    $commonObject -> sqlQuery("DROP TABLE `winupdatestate`");
+
+    $commonObject -> sqlQuery("CREATE TABLE `winupdatestate` (
                               `ID` INT(11) NOT NULL AUTO_INCREMENT,
                               `HARDWARE_ID` INT(11) NOT NULL,
-                              `AUOPTIONS` VARCHAR(255) DEFAULT NULL,
-                              `SCHEDULEDINSTALLDATE` VARCHAR(255) DEFAULT NULL,
-                              `LASTSUCCESSTIME` VARCHAR(255) DEFAULT NULL,
-                              `DETECTSUCCESSTIME` VARCHAR(255) DEFAULT NULL,
-                              `DOWNLOADSUCCESSTIME` VARCHAR(255) DEFAULT NULL,
+                              `KB` VARCHAR(255) DEFAULT NULL,
+                              `TITLE` VARCHAR(255) DEFAULT NULL,
+                              `DATE` VARCHAR(255) DEFAULT NULL,
+                              `OPERATION` VARCHAR(255) DEFAULT NULL,
+                              `STATUS` VARCHAR(255) DEFAULT NULL,
+                              `SUPPORTLINK` VARCHAR(255) DEFAULT NULL,
+                              `DESCRIPTION` VARCHAR(255) DEFAULT NULL,
                               PRIMARY KEY  (`ID`,`HARDWARE_ID`)
                             ) ENGINE=INNODB ;");
 }
@@ -25,7 +29,7 @@ function extension_install_winupdate()
 function extension_delete_winupdate()
 {
     $commonObject = new ExtensionCommon;
-    $commonObject -> sqlQuery("DROP TABLE IF EXISTS `winupdatestate`");
+    $commonObject -> sqlQuery("DROP TABLE `winupdatestate`");
 }
 
 /**

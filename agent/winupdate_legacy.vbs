@@ -43,24 +43,24 @@ Set objAUSettings = objAutoUpdate.Settings
 strRegistry = "Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update"
 
 ' Windows update status (degree of user interaction)
-Result = "<WINUPDATESTATE>" & VbCrLf & "<AUOPTIONS>" &_
-    objAUSettings.NotificationLevel & "</AUOPTIONS>"
+Result = "<WINUPDATESTATE>" & VbCrLf & "<OPERATION>" &_
+    objAUSettings.NotificationLevel & "</OPERATION>"
 
 ' Last success update install date
-Result = Result & VbCrLf & "<LASTSUCCESSTIME>" &_
-    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Install\", "LastSuccessTime", 64) & "</LASTSUCCESSTIME>"
+Result = Result & VbCrLf & "<DATE>" &_
+    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Install\", "LastSuccessTime", 64) & "</DATE>"
 
 ' Last success update detected date
-Result = Result & VbCrLf & "<DETECTSUCCESSTIME>" &_
-    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Detect\", "LastSuccessTime", 64) & "</DETECTSUCCESSTIME>"
+Result = Result & VbCrLf & "<STATUS>" &_
+    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Detect\", "LastSuccessTime", 64) & "</STATUS>"
 
 ' Last success update downloaded date
-Result = Result & VbCrLf & "<DOWNLOADSUCCESSTIME>" &_
-    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Download\", "LastSuccessTime", 64) & "</DOWNLOADSUCCESSTIME>"
+'Result = Result & VbCrLf & "<DOWNLOADSUCCESSTIME>" &_
+'    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry & "\Results\Download\", "LastSuccessTime", 64) & "</DOWNLOADSUCCESSTIME>"
 
 ' Retrieve next verification of Windows update
-Result = Result & VbCrLf & "<SCHEDULEDINSTALLDATE>" &_
-    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry, "ScheduledInstallDate", 64) & "</SCHEDULEDINSTALLDATE>"
+Result = Result & VbCrLf & "<DATE>" &_
+    ReadRegStr (HKEY_LOCAL_MACHINE, strRegistry, "ScheduledInstallDate", 64) & "</DATE>"
 
 Result = Result & VbCrLf & "</WINUPDATESTATE>"
 
