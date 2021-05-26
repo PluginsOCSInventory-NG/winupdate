@@ -40,4 +40,5 @@ foreach ($Update in $UpdateHistory) {
     } 
 }
 
-echo $xml
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::WriteLine($xml)
