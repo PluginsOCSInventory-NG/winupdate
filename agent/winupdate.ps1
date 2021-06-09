@@ -23,11 +23,15 @@ $Searcher = $Session.CreateUpdateSearcher()
 $historyCount = $Searcher.GetTotalHistoryCount()
 
 $UpdateHistory = $Searcher.QueryHistory(0, $historyCount) | Select *
-
+$updates = @()
 foreach ($Update in $UpdateHistory) { 
     [regex]::match($Update.Title,'(KB[0-9]{6,7})').value | Where-Object {$_ -ne ""} | foreach { 
         $op = Get-Operation($Update.Operation)
         $stat = Get-Status($Update.ResultCode)
+		if (-Not ($_ -in $updates)) {
+			$updates += $_
+		}
+		
         $xml += "<WINUPDATESTATE>`n"
         $xml += "<KB>" + $_ + "</KB>`n"
         $xml += "<TITLE>" + $Update.Title + "</TITLE>`n"
@@ -38,6 +42,21 @@ foreach ($Update in $UpdateHistory) {
         $xml += "<DESCRIPTION>" + $Update.Description + "</DESCRIPTION>`n"
         $xml += "</WINUPDATESTATE>`n"
     } 
+}
+
+
+$hotfixes = Get-HotFix | ForEach-Object {
+	if ($updates -NotContains $_.HotFixID) {
+		$xml += "<WINUPDATESTATE>`n"
+        $xml += "<KB>" + $_.HotFixID + "</KB>`n"
+        $xml += "<TITLE> </TITLE>`n"
+        $xml += "<DATE>" + $_.InstalledOn + "</DATE>`n"
+        $xml += "<OPERATION> </OPERATION>`n"
+        $xml += "<STATUS>" + "Succeeded" + "</STATUS>`n"
+        $xml += "<SUPPORTLINK> </SUPPORTLINK>`n"
+        $xml += "<DESCRIPTION>" + $_.Description + "</DESCRIPTION>`n"
+        $xml += "</WINUPDATESTATE>`n"
+	}
 }
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
