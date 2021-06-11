@@ -49,9 +49,9 @@ $hotfixes = Get-HotFix | ForEach-Object {
 	if ($updates -NotContains $_.HotFixID) {
 		$xml += "<WINUPDATESTATE>`n"
         $xml += "<KB>" + $_.HotFixID + "</KB>`n"
-        $xml += "<TITLE> </TITLE>`n"
+        $xml += "<TITLE>" + "HotFix" + "</TITLE>`n"
         $xml += "<DATE>" + $_.InstalledOn + "</DATE>`n"
-        $xml += "<OPERATION> </OPERATION>`n"
+        $xml += "<OPERATION>" + "Installation" + "</OPERATION>`n"
         $xml += "<STATUS>" + "Succeeded" + "</STATUS>`n"
         $xml += "<SUPPORTLINK> </SUPPORTLINK>`n"
         $xml += "<DESCRIPTION>" + $_.Description + "</DESCRIPTION>`n"
