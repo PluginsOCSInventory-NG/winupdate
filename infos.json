@@ -1,9 +1,9 @@
 {
   "displayName" : "Winupdate",
   "author" : ["Guillaume PRIOU", "Gilles DUBOIS"],
-  "contributor" : [],
+  "contributor" : ["Léa DROGUET", "Charlène AUGER"],
   "supportedAgent" : ["Windows"],
-  "version" : "2.2",
+  "version" : "3.0",
   "licence" : "GPLv2",
   "description" : {
     "fr" : "Remonte le status et la configuration des mises à jour Windows",
