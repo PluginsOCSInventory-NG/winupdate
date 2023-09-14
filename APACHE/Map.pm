@@ -32,4 +32,19 @@ $DATA_MAP{winupdatestate} = {
 			DESCRIPTION => {},
 	    }
 };
+
+$DATA_MAP{winupdatescan} = {
+	mask => 0,
+		multi => 1,
+		auto => 1,
+		delOnReplace => 1,
+		sortBy => 'AUOPTIONS',
+		writeDiff => 0,
+		cache => 0,
+		fields => {
+			TITLE => {},
+			LASTSCANDATE => {},
+			LASTINSTALLATIONDATE => {},
+	    }
+};
 1;

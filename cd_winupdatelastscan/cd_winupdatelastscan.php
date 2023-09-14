@@ -19,12 +19,12 @@
 		$ajax=false;
 	}
 
-	print_item_header("Windows Update State");
+	print_item_header("Windows Update Scan");
 
 	if (!isset($protectedPost['SHOW']))
 		$protectedPost['SHOW'] = 'NOSHOW';
 
-	$form_name="winupdate";
+	$form_name="winupdatescan";
 
 	$table_name=$form_name;
 	$tab_options=$protectedPost;
@@ -34,20 +34,16 @@
 	echo open_form($form_name);
 
 	$list_fields=array(
-			"KB" => "KB",
 			"Title" => "TITLE",
-			"Install Date" => "DATE",
-			"Operation Status" => "OPERATION",
-			"Result Status" => "STATUS",
-			"Support Link" => "SUPPORTLINK",
-			"Description" => "DESCRIPTION"
+			"Last scan date" => "LASTSCANDATE",
+			"Last installation date" => "LASTINSTALLATIONDATE"
 	);
 
 	$list_col_cant_del=$list_fields;
 	$default_fields= $list_fields;
 
 	$sql=prepare_sql_tab($list_fields);
-	$sql['SQL']  .= "FROM winupdatestate WHERE (hardware_id = $systemid)";
+	$sql['SQL']  .= "FROM winupdatescan WHERE (hardware_id = $systemid)";
 	array_push($sql['ARG'],$systemid);
 	$tab_options['ARG_SQL']=$sql['ARG'];
 	$tab_options['ARG_SQL_COUNT']=$systemid;
@@ -55,7 +51,7 @@
 	ajaxtab_entete_fixe($list_fields,$default_fields,$tab_options,$list_col_cant_del);
 
 	echo close_form();
-	
+
 	if ($ajax){
 		ob_end_clean();
 		tab_req($list_fields,$default_fields,$list_col_cant_del,$sql['SQL'],$tab_options);

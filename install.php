@@ -21,6 +21,17 @@ function extension_install_winupdate()
                               `DESCRIPTION` VARCHAR(255) DEFAULT NULL,
                               PRIMARY KEY  (`ID`,`HARDWARE_ID`)
                             ) ENGINE=INNODB ;");
+
+    $commonObject -> sqlQuery("DROP TABLE `winupdatescan`");
+
+    $commonObject -> sqlQuery("CREATE TABLE `winupdatescan` (
+                              `ID` INT(11) NOT NULL AUTO_INCREMENT,
+                              `HARDWARE_ID` INT(11) NOT NULL,
+                              `TITLE` VARCHAR(255) DEFAULT NULL,
+                              `LASTSCANDATE` VARCHAR(255) DEFAULT NULL,
+                              `LASTINSTALLATIONDATE` VARCHAR(255) DEFAULT NULL,
+                              PRIMARY KEY  (`ID`,`HARDWARE_ID`)
+                            ) ENGINE=INNODB ;");
 }
 
 /**
@@ -30,6 +41,8 @@ function extension_delete_winupdate()
 {
     $commonObject = new ExtensionCommon;
     $commonObject -> sqlQuery("DROP TABLE `winupdatestate`");
+    $commonObject -> sqlQuery("DROP TABLE `winupdatescan`");
+
 }
 
 /**

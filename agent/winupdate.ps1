@@ -45,6 +45,8 @@ foreach ($Update in $UpdateHistory) {
 }
 
 
+
+
 $hotfixes = Get-HotFix | ForEach-Object {
 	if ($updates -NotContains $_.HotFixID) {
 		$xml += "<WINUPDATESTATE>`n"
@@ -58,6 +60,15 @@ $hotfixes = Get-HotFix | ForEach-Object {
         $xml += "</WINUPDATESTATE>`n"
 	}
 }
+
+$checkUpdate = (New-Object -com "Microsoft.Update.AutoUpdate").Results | ForEach-Object {
+		$xml += "<WINUPDATESCAN>`n"
+        $xml += "<TITLE>" + "Last update scan" + "</TITLE>`n"
+        $xml += "<LASTSCANDATE>" + $_.LastSearchSuccessDate + "</LASTSCANDATE>`n"
+        $xml += "<LASTINSTALLATIONDATE>" + $_.LastInstallationSuccessDate + "</LASTINSTALLATIONDATE>`n"
+        $xml += "</WINUPDATESCAN>`n"
+}
+
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 [Console]::WriteLine($xml)
