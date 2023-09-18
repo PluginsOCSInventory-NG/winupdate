@@ -19,7 +19,6 @@
 		$ajax=false;
 	}
 	
-
 	$def_onglets['OTHER'] = $l->g(73001);
 	$def_onglets['SOFTWARE'] = $l->g(73002); 
 
@@ -27,8 +26,6 @@
 	if (empty($protectedPost['onglet'])) {
 		$protectedPost['onglet'] = "OTHER";
 	}
-
-	print_item_header("Windows Update State");
 
 	if (!isset($protectedPost['SHOW']))
 		$protectedPost['SHOW'] = 'NOSHOW';
@@ -41,6 +38,14 @@
 		if ($_GET["cat"] == "software") {
 			$protectedPost['onglet'] = "SOFTWARE";
 		}
+	}
+	
+	// Set the header
+	if($protectedPost['onglet'] == "OTHER"){
+		print_item_header("Windows Update State");
+	}
+	if($protectedPost['onglet'] == "SOFTWARE"){
+		print_item_header("Windows Update Scan");
 	}
 	
 	$form_name="winupdate";
@@ -66,7 +71,6 @@
 
 		$list_col_cant_del=$list_fields;
 		$default_fields= $list_fields;
-
 		
 		$sql['SQL'] = "SELECT * FROM winupdatestate WHERE (hardware_id = $systemid)";
 	}
@@ -85,8 +89,6 @@
 		$sql['SQL'] = "SELECT * FROM winupdatescan WHERE (hardware_id = $systemid)";
 		
 	}
-
-	error_log($sql['SQL']);
 
 	ajaxtab_entete_fixe($list_fields,$default_fields,$tab_options,$list_col_cant_del);
 

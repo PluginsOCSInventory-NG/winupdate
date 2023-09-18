@@ -11,7 +11,7 @@
         <available>winupdate</available>
     </hook>
     <hook type="cdentry">
-        <identifier>cd_winupdatelastscan</identifier>
+        <identifier>cd_winupdate</identifier>
         <translation>37000</translation>
         <category>software</category>
         <available>winupdate</available>
