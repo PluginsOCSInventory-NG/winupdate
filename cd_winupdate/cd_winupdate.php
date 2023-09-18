@@ -19,8 +19,8 @@
 		$ajax=false;
 	}
 	
-	$def_onglets['OTHER'] = $l->g(73001);
-	$def_onglets['SOFTWARE'] = $l->g(73002); 
+	$def_onglets['OTHER'] = "OTHER";
+	$def_onglets['SOFTWARE'] = "SOFTWARE"; 
 
 	//default => first onglet
 	if (empty($protectedPost['onglet'])) {
@@ -32,19 +32,19 @@
 
 	if (isset($_GET["cat"])) {
 		if ($_GET["cat"] == "other") {
-			$protectedPost['onglet'] = $l->g(73001);
+			$protectedPost['onglet'] = "OTHER";
 		}
 
 		if ($_GET["cat"] == "software") {
-			$protectedPost['onglet'] = $l->g(73002);
+			$protectedPost['onglet'] = "SOFTWARE";
 		}
 	}
 	
 	// Set the header
-	if($protectedPost['onglet'] == $l->g(73001)){
+	if($protectedPost['onglet'] == "OTHER"){
 		print_item_header($l->g(73003));
 	}
-	if($protectedPost['onglet'] == $l->g(73002)){
+	if($protectedPost['onglet'] == "SOFTWARE"){
 		print_item_header($l->g(73004));
 	}
 	
@@ -57,7 +57,7 @@
 
 	echo open_form($form_name);
 
-	if($protectedPost['onglet'] == $l->g(73001)){
+	if($protectedPost['onglet'] == "OTHER"){
 
 		$list_fields=array(
 			$l->g(73005) => "KB",
@@ -75,7 +75,7 @@
 		$sql['SQL'] = "SELECT * FROM winupdatestate WHERE (hardware_id = $systemid)";
 	}
 
-	if($protectedPost['onglet'] == $l->g(73002)){
+	if($protectedPost['onglet'] == "SOFTWARE"){
 		
 		$list_fields=array(
 			$l->g(73006) => "TITLE",

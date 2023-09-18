@@ -1,6 +1,4 @@
 37000 Windows Update
-73001 DIVERS
-73002 LOGICIEL
 73003 État de mise à jour windows 
 73004 Analyse des mises à jour Windows
 73005 KB

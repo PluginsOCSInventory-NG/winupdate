@@ -1,6 +1,4 @@
 37000 Windows Update
-73001 OTHER
-73002 SOFTWARE
 73003 Windows Update State
 73004 Windows Update Scan
 73005 KB
