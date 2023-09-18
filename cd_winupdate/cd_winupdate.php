@@ -18,12 +18,31 @@
 	else{
 		$ajax=false;
 	}
+	
+
+	$def_onglets['OTHER'] = $l->g(73001);
+	$def_onglets['SOFTWARE'] = $l->g(73002); 
+
+	//default => first onglet
+	if (empty($protectedPost['onglet'])) {
+		$protectedPost['onglet'] = "OTHER";
+	}
 
 	print_item_header("Windows Update State");
 
 	if (!isset($protectedPost['SHOW']))
 		$protectedPost['SHOW'] = 'NOSHOW';
 
+	if (isset($_GET["cat"])) {
+		if ($_GET["cat"] == "other") {
+			$protectedPost['onglet'] = "OTHER";
+		}
+
+		if ($_GET["cat"] == "software") {
+			$protectedPost['onglet'] = "SOFTWARE";
+		}
+	}
+	
 	$form_name="winupdate";
 
 	$table_name=$form_name;
@@ -33,7 +52,9 @@
 
 	echo open_form($form_name);
 
-	$list_fields=array(
+	if($protectedPost['onglet'] == "OTHER"){
+
+		$list_fields=array(
 			"KB" => "KB",
 			"Title" => "TITLE",
 			"Install Date" => "DATE",
@@ -41,16 +62,31 @@
 			"Result Status" => "STATUS",
 			"Support Link" => "SUPPORTLINK",
 			"Description" => "DESCRIPTION"
-	);
+		);
 
-	$list_col_cant_del=$list_fields;
-	$default_fields= $list_fields;
+		$list_col_cant_del=$list_fields;
+		$default_fields= $list_fields;
 
-	$sql=prepare_sql_tab($list_fields);
-	$sql['SQL']  .= "FROM winupdatestate WHERE (hardware_id = $systemid)";
-	array_push($sql['ARG'],$systemid);
-	$tab_options['ARG_SQL']=$sql['ARG'];
-	$tab_options['ARG_SQL_COUNT']=$systemid;
+		
+		$sql['SQL'] = "SELECT * FROM winupdatestate WHERE (hardware_id = $systemid)";
+	}
+
+	if($protectedPost['onglet'] == "SOFTWARE"){
+		
+		$list_fields=array(
+			"Title" => "TITLE",
+			"Last scan date" => "LASTSCANDATE",
+			"Last installation date" => "LASTINSTALLATIONDATE"
+		);
+
+		$list_col_cant_del=$list_fields;
+		$default_fields= $list_fields;
+	
+		$sql['SQL'] = "SELECT * FROM winupdatescan WHERE (hardware_id = $systemid)";
+		
+	}
+
+	error_log($sql['SQL']);
 
 	ajaxtab_entete_fixe($list_fields,$default_fields,$tab_options,$list_col_cant_del);
 
