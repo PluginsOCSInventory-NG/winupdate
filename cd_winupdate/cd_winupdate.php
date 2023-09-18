@@ -32,20 +32,20 @@
 
 	if (isset($_GET["cat"])) {
 		if ($_GET["cat"] == "other") {
-			$protectedPost['onglet'] = "OTHER";
+			$protectedPost['onglet'] = $l->g(73001);
 		}
 
 		if ($_GET["cat"] == "software") {
-			$protectedPost['onglet'] = "SOFTWARE";
+			$protectedPost['onglet'] = $l->g(73002);
 		}
 	}
 	
 	// Set the header
-	if($protectedPost['onglet'] == "OTHER"){
-		print_item_header("Windows Update State");
+	if($protectedPost['onglet'] == $l->g(73001)){
+		print_item_header($l->g(73003));
 	}
-	if($protectedPost['onglet'] == "SOFTWARE"){
-		print_item_header("Windows Update Scan");
+	if($protectedPost['onglet'] == $l->g(73002)){
+		print_item_header($l->g(73004));
 	}
 	
 	$form_name="winupdate";
@@ -57,16 +57,16 @@
 
 	echo open_form($form_name);
 
-	if($protectedPost['onglet'] == "OTHER"){
+	if($protectedPost['onglet'] == $l->g(73001)){
 
 		$list_fields=array(
-			"KB" => "KB",
-			"Title" => "TITLE",
-			"Install Date" => "DATE",
-			"Operation Status" => "OPERATION",
-			"Result Status" => "STATUS",
-			"Support Link" => "SUPPORTLINK",
-			"Description" => "DESCRIPTION"
+			$l->g(73005) => "KB",
+			$l->g(73006) => "TITLE",
+			$l->g(73007) => "DATE",
+			$l->g(73008) => "OPERATION",
+			$l->g(73009) => "STATUS",
+			$l->g(73010) => "SUPPORTLINK",
+			$l->g(73011) => "DESCRIPTION"
 		);
 
 		$list_col_cant_del=$list_fields;
@@ -75,12 +75,12 @@
 		$sql['SQL'] = "SELECT * FROM winupdatestate WHERE (hardware_id = $systemid)";
 	}
 
-	if($protectedPost['onglet'] == "SOFTWARE"){
+	if($protectedPost['onglet'] == $l->g(73002)){
 		
 		$list_fields=array(
-			"Title" => "TITLE",
-			"Last scan date" => "LASTSCANDATE",
-			"Last installation date" => "LASTINSTALLATIONDATE"
+			$l->g(73006) => "TITLE",
+			$l->g(73012) => "LASTSCANDATE",
+			$l->g(73013) => "LASTINSTALLATIONDATE"
 		);
 
 		$list_col_cant_del=$list_fields;

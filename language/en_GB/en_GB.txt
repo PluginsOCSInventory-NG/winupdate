@@ -1,1 +1,16 @@
 37000 Windows Update
+73001 OTHER
+73002 SOFTWARE
+73003 Windows Update State
+73004 Windows Update Scan
+73005 KB
+73006 Title
+73007 Install Date
+73008 Operation Status
+73009 Result Status
+73010 Support Link
+73011 Description
+73012 Last scan date
+73013 Last installation date
+
+

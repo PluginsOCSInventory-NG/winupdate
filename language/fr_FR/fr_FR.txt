@@ -1,1 +1,16 @@
 37000 Windows Update
+73001 DIVERS
+73002 LOGICIEL
+73003 État de mise à jour windows 
+73004 Analyse des mises à jour Windows
+73005 KB
+73006 Titre
+73007 Date d'installation
+73008 État de l'opération
+73009 Statut du résultat
+73010 Lien de support
+73011 Description
+73012 Date de la dernière analyse
+73013 Date de la dernère installation
+
+
