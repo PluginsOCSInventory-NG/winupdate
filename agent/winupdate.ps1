@@ -18,6 +18,8 @@ function Get-Status{
     }
 }
 
+$OffSetMin = [System.TimeZoneInfo]::Local.GetUtcOffset((Get-Date)).TotalMinutes
+
 $Session = New-Object -ComObject "Microsoft.Update.Session"
 $Searcher = $Session.CreateUpdateSearcher()
 $historyCount = $Searcher.GetTotalHistoryCount()
@@ -31,11 +33,13 @@ foreach ($Update in $UpdateHistory) {
 		if (-Not ($_ -in $updates)) {
 			$updates += $_
 		}
+
+        $LocalDate = $Update.Date.AddMinutes($OffSetMin)
 		
         $xml += "<WINUPDATESTATE>`n"
         $xml += "<KB>" + $_ + "</KB>`n"
         $xml += "<TITLE>" + $Update.Title + "</TITLE>`n"
-        $xml += "<DATE>" + $Update.Date + "</DATE>`n"
+        $xml += "<DATE>" + $LocalDate + "</DATE>`n"
         $xml += "<OPERATION>" + $op + "</OPERATION>`n"
         $xml += "<STATUS>" + $stat + "</STATUS>`n"
         $xml += "<SUPPORTLINK>" + $Update.SupportUrl + "</SUPPORTLINK>`n"
@@ -43,8 +47,6 @@ foreach ($Update in $UpdateHistory) {
         $xml += "</WINUPDATESTATE>`n"
     } 
 }
-
-
 
 
 $hotfixes = Get-HotFix | ForEach-Object {
@@ -60,15 +62,6 @@ $hotfixes = Get-HotFix | ForEach-Object {
         $xml += "</WINUPDATESTATE>`n"
 	}
 }
-
-$checkUpdate = (New-Object -com "Microsoft.Update.AutoUpdate").Results | ForEach-Object {
-		$xml += "<WINUPDATESCAN>`n"
-        $xml += "<TITLE>" + "Last update scan" + "</TITLE>`n"
-        $xml += "<LASTSCANDATE>" + $_.LastSearchSuccessDate + "</LASTSCANDATE>`n"
-        $xml += "<LASTINSTALLATIONDATE>" + $_.LastInstallationSuccessDate + "</LASTINSTALLATIONDATE>`n"
-        $xml += "</WINUPDATESCAN>`n"
-}
-
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 [Console]::WriteLine($xml)
